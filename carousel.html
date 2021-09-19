@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .arrow {
+  padding: 0;
+  background: #ddd;
+  border-radius: 15px;
+  border: 1px solid gray;
+  font-size: 24px;
+  line-height: 24px;
+  color: #444;
+  display: block;
+}
+
+.arrow:focus {
+  outline: none;
+}
+
+.arrow:hover {
+  background: #ccc;
+  cursor: pointer;
+}
+
+ul {
+  height: 130px;
+  width: 9999px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+ul img {
+  width: 130px;
+  height: 130px;
+  display: block; /* removes extra space near images */
+}
+
+ul li {
+  display: inline-block; /* removes extra space between list items */
+}
+/* Custom */
+button.arrow {
+  position: absolute;
+  height: 100px;
+  width: 30px;
+  top: 22px;
+  float:left;
+}
+button.arrow.prev {
+  left: 10px;
+}
+button.arrow.next {
+  right: 10px;
+}
+div.carousel {
+  position: relative;
+  height: 150px;
+  width: 500px;
+  border: 1px solid #ccc;
+  margin: 50px auto;
+}
+div.galery {
+  position: absolute;
+  width: 390px;
+  top: 11px;
+  left: 50px;
+  overflow: hidden; 
+}
+div.galery > ul {
+  width: 9999px; 
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+  transition: transform 0.35s ease-in-out;
+}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="carousel">
+        <button class="arrow prev">⇦</button>
+        <div class="galery">
+          <ul>
+            <li><img src="https://en.js.cx/carousel/1.png"></li>
+            <li><img src="https://en.js.cx/carousel/2.png"></li>
+            <li><img src="https://en.js.cx/carousel/3.png"></li>
+            <li><img src="https://en.js.cx/carousel/4.png"></li>
+            <li><img src="https://en.js.cx/carousel/5.png"></li>
+            <li><img src="https://en.js.cx/carousel/6.png"></li>
+            <li><img src="https://en.js.cx/carousel/7.png"></li>
+            <li><img src="https://en.js.cx/carousel/8.png"></li>
+            <li><img src="https://en.js.cx/carousel/9.png"></li>
+            <li><img src="https://en.js.cx/carousel/10.png"></li>
+          </ul>
+        </div>
+        <button class="arrow next">⇨</button>
+    </div>
+    <script>
+        const btnPrev = document.querySelector('button.arrow.prev');
+    const btnNext = document.querySelector('button.arrow.next');
+    const ul = document.querySelector('div.galery > ul');
+    const liWidth = document.querySelector('div.galery > ul > li').clientWidth;
+    const limit = ul.querySelectorAll('img').length * liWidth; 
+    
+    const count = 3;
+    let position = 0;
+    
+    console.log(ul); 
+    
+    const scrollFn = (isNext) => {
+      const off = position + (count * (isNext ? liWidth : -(liWidth)));
+      console.log(off);
+      if(off < 0 || off > limit) {
+        return;
+      }
+      
+      position = off;
+      ul.style.transform = `translateX(${-(position)}px)`;
+    };
+    
+    btnPrev.onclick = () => scrollFn(false);
+    btnNext.onclick = () => scrollFn(true);
+    </script>
+</body>
+</html>
